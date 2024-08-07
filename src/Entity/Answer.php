@@ -42,13 +42,11 @@ final class Answer implements \JsonSerializable
     /**
      * Checks the answer for correct/incorrect.
      * The correct answer is considered to be one that doesn't contain any incorrect values.
-     * @param Question $question
-     * @return bool
      */
     public function isCorrect(Question $question): bool
     {
         $correctOptions = [];
-        /**@var Option $option */
+        /** @var Option $option */
         foreach ($question->getOptions() as $option) {
             if ($option->getIsCorrect()) {
                 $correctOptions[$option->getId()] = $option;
