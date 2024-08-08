@@ -24,11 +24,10 @@ final class AnswerTest extends KernelTestCase
         );
 
         $question = new Question();
-        $question->setOptions(new ArrayCollection([
-            Option::new(1, 1, "1", true),
-            Option::new(2, 1, "1", true),
-            Option::new(3, 1, "1", false), // << incorrect
-        ]));
+        $question->setId(1);
+        $question->addOption((new Option())->setId(1)->setText('1')->setIsCorrect(true));
+        $question->addOption((new Option())->setId(2)->setText('2')->setIsCorrect(true));
+        $question->addOption((new Option())->setId(3)->setText('3')->setIsCorrect(false)); // << incorrect
 
         self::assertTrue($answer->isCorrect($question));
     }
@@ -44,11 +43,9 @@ final class AnswerTest extends KernelTestCase
         );
 
         $question = new Question();
-        $question->setOptions(new ArrayCollection([
-            Option::new(1, 1, "1", true),
-            Option::new(2, 1, "1", true),
-            Option::new(3, 1, "1", false), // << incorrect
-        ]));
+        $question->addOption((new Option())->setId(1)->setText('1')->setIsCorrect(true));
+        $question->addOption((new Option())->setId(2)->setText('2')->setIsCorrect(true));
+        $question->addOption((new Option())->setId(3)->setText('3')->setIsCorrect(false)); // << incorrect
 
         self::assertTrue($answer->isCorrect($question));
     }
@@ -64,11 +61,9 @@ final class AnswerTest extends KernelTestCase
         );
 
         $question = new Question();
-        $question->setOptions(new ArrayCollection([
-            Option::new(1, 1, "1", true),
-            Option::new(2, 1, "1", true),
-            Option::new(3, 1, "1", false), // << incorrect
-        ]));
+        $question->addOption((new Option())->setId(1)->setText('1')->setIsCorrect(true));
+        $question->addOption((new Option())->setId(2)->setText('2')->setIsCorrect(true));
+        $question->addOption((new Option())->setId(3)->setText('3')->setIsCorrect(false)); // << incorrect
 
         self::assertFalse($answer->isCorrect($question));
     }

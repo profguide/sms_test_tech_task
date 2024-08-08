@@ -31,16 +31,6 @@ final class Question implements \JsonSerializable
         $this->options = new ArrayCollection();
     }
 
-    public static function new(int $id, string $text, Collection $options): self
-    {
-        $question = new Question();
-        $question->id = $id;
-        $question->text = $text;
-        $question->options = $options;
-
-        return $question;
-    }
-
     public function getId(): int
     {
         return $this->id;

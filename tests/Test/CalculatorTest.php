@@ -13,25 +13,31 @@ use App\Test\AnswersHolder;
 use App\Test\CalculationData;
 use App\Test\Calculator;
 use App\Test\QuestionsHolder;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class CalculatorTest extends KernelTestCase
 {
     public function testCalculatorResultSet()
     {
-        $correctAnswerQuestion = Question::new(1, "1 + 1 = ?", new ArrayCollection([
-            Option::new(10, 1, "3", false),
-            Option::new(11, 1, "2", true),
-            Option::new(12, 1, "0", false),
-        ]));
+        $correctAnswerQuestion = new Question();
+        $correctAnswerQuestion->setId(1);
+        $correctAnswerQuestion->setText("1 + 1 = ?");
+        $correctAnswerQuestion->addOption(
+            (new Option())->setId(10)->setText('3')->setIsCorrect(false));
+        $correctAnswerQuestion->addOption(
+            (new Option())->setId(11)->setText('2')->setIsCorrect(true));
+        $correctAnswerQuestion->addOption(
+            (new Option())->setId(12)->setText('1')->setIsCorrect(false));
 
-        $incorrectAnswerQuestion = Question::new(2, "2 + 2 = ?", new ArrayCollection([
-            Option::new(20, 2, "4", true),
-            Option::new(21, 2, "3 + 1", true),
-            Option::new(22, 2, "10", false),
-        ]));
-
+        $incorrectAnswerQuestion = new Question();
+        $incorrectAnswerQuestion->setId(2);
+        $incorrectAnswerQuestion->setText("1 + 1 = ?");
+        $incorrectAnswerQuestion->addOption(
+            (new Option())->setId(20)->setText('4')->setIsCorrect(true));
+        $incorrectAnswerQuestion->addOption(
+            (new Option())->setId(21)->setText('3 + 1')->setIsCorrect(true));
+        $incorrectAnswerQuestion->addOption(
+            (new Option())->setId(22)->setText('10')->setIsCorrect(false));
 
         $questions = new QuestionsHolder([
             $correctAnswerQuestion,

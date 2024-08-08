@@ -25,26 +25,15 @@ final class Option implements \JsonSerializable
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCorrect = false;
 
-    public static function new(int $id, Question $question, string $text, bool $isCorrect): self
-    {
-        $option = new self();
-
-        $option->id = $id;
-        $option->question = $question;
-        $option->text = $text;
-        $option->isCorrect = $isCorrect;
-
-        return $option;
-    }
-
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): self
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getQuestion(): Question
@@ -62,9 +51,10 @@ final class Option implements \JsonSerializable
         return $this->text;
     }
 
-    public function setText(string $text): void
+    public function setText(string $text): self
     {
         $this->text = $text;
+        return $this;
     }
 
     public function getIsCorrect(): bool
@@ -72,9 +62,10 @@ final class Option implements \JsonSerializable
         return $this->isCorrect;
     }
 
-    public function setIsCorrect(bool $isCorrect): void
+    public function setIsCorrect(bool $isCorrect): self
     {
         $this->isCorrect = $isCorrect;
+        return $this;
     }
 
     public function jsonSerialize(): array
