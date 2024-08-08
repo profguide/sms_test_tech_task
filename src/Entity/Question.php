@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -20,12 +21,17 @@ final class Question implements \JsonSerializable
     private ?string $text;
 
     /**
-     * @var ArrayCollection<Option>
+     * @var Collection<Option>
      */
-    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'questionId')]
-    private ArrayCollection $options;
+    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'questionId', cascade: ['all'])]
+    private Collection $options;
 
-    public static function new(int $id, string $text, ArrayCollection $options): self
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
+
+    public static function new(int $id, string $text, Collection $options): self
     {
         $question = new Question();
         $question->id = $id;
@@ -56,16 +62,24 @@ final class Question implements \JsonSerializable
     }
 
     /**
-     * @return ArrayCollection<Option>
+     * @return Collection<Option>
      */
-    public function getOptions(): ArrayCollection
+    public function getOptions(): Collection
     {
         return $this->options;
     }
 
-    public function setOptions(ArrayCollection $options): void
+    public function setOptions(Collection $options): void
     {
         $this->options = $options;
+    }
+
+    public function addOption(Option $option): void
+    {
+        if (!$this->options->contains($option)) {
+            $option->setQuestion($this);
+            $this->options->add($option);
+        }
     }
 
     public function jsonSerialize(): array

@@ -17,7 +17,7 @@ final class Option implements \JsonSerializable
 
     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'options')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?int $question;
+    private Question $question;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private ?string $text;
@@ -25,12 +25,12 @@ final class Option implements \JsonSerializable
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCorrect = false;
 
-    public static function new(int $id, int $questionId, string $text, bool $isCorrect): self
+    public static function new(int $id, Question $question, string $text, bool $isCorrect): self
     {
         $option = new self();
 
         $option->id = $id;
-        $option->question = $questionId;
+        $option->question = $question;
         $option->text = $text;
         $option->isCorrect = $isCorrect;
 
@@ -47,12 +47,12 @@ final class Option implements \JsonSerializable
         $this->id = $id;
     }
 
-    public function getQuestion(): int
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(int $question): void
+    public function setQuestion(Question $question): void
     {
         $this->question = $question;
     }
