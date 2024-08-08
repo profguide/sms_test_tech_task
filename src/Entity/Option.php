@@ -33,6 +33,7 @@ final class Option implements \JsonSerializable
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -54,6 +55,7 @@ final class Option implements \JsonSerializable
     public function setText(string $text): self
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -65,6 +67,7 @@ final class Option implements \JsonSerializable
     public function setIsCorrect(bool $isCorrect): self
     {
         $this->isCorrect = $isCorrect;
+
         return $this;
     }
 

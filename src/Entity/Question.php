@@ -23,7 +23,7 @@ final class Question implements \JsonSerializable
     /**
      * @var Collection<Option>
      */
-    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'questionId', cascade: ['all'])]
+    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'question', cascade: ['all'])]
     private Collection $options;
 
     public function __construct()
