@@ -11,8 +11,6 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $manager->clear();
-
         $questions = $this->createQuestions([
             '1 + 1 = ?' => [
                 '3' => false,

@@ -49,7 +49,19 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		fi
 
 		if [ "$( find ./migrations -iname '*.php' -print -quit )" ]; then
+#			php bin/console doctrine:migrations:migrate --no-interaction --all-or-nothing
+			echo "Clearing database..."
+			php bin/console doctrine:database:drop --force
+			echo "Creating database..."
+			php bin/console doctrine:database:create
+#			php bin/console doctrine:schema:update --force
+			echo "Migrating..."
 			php bin/console doctrine:migrations:migrate --no-interaction --all-or-nothing
+		fi
+
+		# Добавление загрузки фикстур
+		if [ "$( find ./src/DataFixtures -iname '*.php' -print -quit )" ]; then
+			php bin/console doctrine:fixtures:load --no-interaction
 		fi
 	fi
 
