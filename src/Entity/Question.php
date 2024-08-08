@@ -4,14 +4,25 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
-final class Question
+#[ORM\Entity(repositoryClass: QuestionRepository::class)]
+final class Question implements \JsonSerializable
 {
-    private int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id;
 
-    private string $text;
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private ?string $text;
 
+    /**
+     * @var ArrayCollection<Option>
+     */
+    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'questionId')]
     private ArrayCollection $options;
 
     public static function new(int $id, string $text, ArrayCollection $options): self
@@ -45,7 +56,7 @@ final class Question
     }
 
     /**
-     * @return ArrayCollection[Option]
+     * @return ArrayCollection<Option>
      */
     public function getOptions(): ArrayCollection
     {
@@ -55,5 +66,14 @@ final class Question
     public function setOptions(ArrayCollection $options): void
     {
         $this->options = $options;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->text,
+            'options' => $this->options->getValues(),
+        ];
     }
 }

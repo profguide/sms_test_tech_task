@@ -4,25 +4,33 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-final class Option
+use App\Repository\OptionRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: OptionRepository::class)]
+final class Option implements \JsonSerializable
 {
-    private int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id;
 
-    private int $questionId;
+    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'options')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?int $question;
 
-    private int $orderWeight;
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private ?string $text;
 
-    private string $text;
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isCorrect = false;
 
-    private bool $isCorrect;
-
-    public static function new(int $id, int $questionId, string $text, bool $isCorrect, int $orderWeight = 0): self
+    public static function new(int $id, int $questionId, string $text, bool $isCorrect): self
     {
         $option = new self();
 
         $option->id = $id;
-        $option->questionId = $questionId;
-        $option->orderWeight = $orderWeight;
+        $option->question = $questionId;
         $option->text = $text;
         $option->isCorrect = $isCorrect;
 
@@ -39,24 +47,14 @@ final class Option
         $this->id = $id;
     }
 
-    public function getQuestionId(): int
+    public function getQuestion(): int
     {
-        return $this->questionId;
+        return $this->question;
     }
 
-    public function setQuestionId(int $questionId): void
+    public function setQuestion(int $question): void
     {
-        $this->questionId = $questionId;
-    }
-
-    public function getOrderWeight(): int
-    {
-        return $this->orderWeight;
-    }
-
-    public function setOrderWeight(int $orderWeight): void
-    {
-        $this->orderWeight = $orderWeight;
+        $this->question = $question;
     }
 
     public function getText(): string
@@ -77,5 +75,13 @@ final class Option
     public function setIsCorrect(bool $isCorrect): void
     {
         $this->isCorrect = $isCorrect;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->text,
+        ];
     }
 }
