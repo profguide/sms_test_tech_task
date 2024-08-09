@@ -1,13 +1,29 @@
 # Тестовый проект
 
 Автор: Давыдов Артём
+Время выполнения ~20 часов.
 
-## Getting Started
+## Инструкция по запуску в Docker
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --no-cache` to build fresh images
-3. Run `docker compose up --pull always -d --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser
+1. Build: `docker compose build --no-cache`
+2. Run: `docker compose up --pull always -d --wait`
+3. Open `https://localhost`
    and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+4. Stop: `docker compose down --remove-orphans`
+
+## Описание
+
+Пройти тест (https://localhost/).
+Можно проходить сколько угодно раз.
+Результаты сохраняются в БД.
+Результат содержит два списка: вопросы, на которые пользователь ответил правильно и неправильно.
+Вопросы попадают в БД при запуске контейнера.
+
+### Стек
+
+Symfony, PSQL, Javascript (jquery, axios)
+
+### Phpunit
+
+калькуляция, определение правильности/неправильности ответа, преобразование форматов.
 
