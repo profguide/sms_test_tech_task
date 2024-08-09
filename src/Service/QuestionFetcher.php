@@ -13,6 +13,11 @@ final readonly class QuestionFetcher
     {
     }
 
+    public function getFirst(): Question
+    {
+        return $this->questions->getFirst();
+    }
+
     public function findOneNext(int $id): ?Question
     {
         return $this->questions->findOneWithIdGreaterThan($id);
