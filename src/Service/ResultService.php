@@ -17,4 +17,9 @@ final readonly class ResultService
     {
         $this->results->create($result);
     }
+
+    public function findOneById(int $id): ?Result
+    {
+        return $this->results->find($id);
+    }
 }

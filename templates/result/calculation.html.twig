@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Тест'|trans }}{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Вопросы, на которые вы ответили <span class="text-success">правильно</span></h4>
+                    {% if correct %}
+                        <ul class="mt-4">
+                            {% for question in correct %}
+                                <li>
+                                    {{ question.text }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <h4>Вопросы, на которые вы ответили <span class="text-danger">неправильно</span></h4>
+
+                    {% if incorrect %}
+                        <ul class="mt-4">
+                            {% for question in incorrect %}
+                                <li>
+                                    {{ question.text }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary">Пройти тест ещё раз</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

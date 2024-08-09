@@ -13,6 +13,11 @@ final readonly class QuestionFetcher
     {
     }
 
+    public function getAll(): array
+    {
+        return $this->questions->findAll();
+    }
+
     public function getFirst(): Question
     {
         return $this->questions->getFirst();
