@@ -1,16 +1,21 @@
 body {
-    background-color: skyblue;
+    /*background-color: skyblue;*/
+}
+
+main {
+    margin-top: 2rem;
 }
 
 .test {
-    border: 1px solid;
-    padding: 15px;
-    background: #f9f9f9;
+    /*border: 1px solid;*/
+    /*padding: 15px;*/
+    /*background: #f9f9f9;*/
 }
 
 .test__name {
     font-weight: 600;
     font-size: 18px;
+    margin-bottom: 1rem;
 }
 
 .test__ul {
@@ -19,7 +24,7 @@ body {
 }
 
 .test__li {
-    margin-bottom: 15px;
+    /*margin-bottom: 7px;*/
 }
 
 .test__li label {

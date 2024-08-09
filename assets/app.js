@@ -2,6 +2,7 @@
 
 import $ from 'jquery';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
 
 const storage = (function () {
@@ -112,7 +113,7 @@ $(function () {
     }
 
     const button = document.createElement('button')
-    button.className = 'test__button';
+    button.className = 'test__button btn btn-primary';
     button.innerText = 'Ответить';
 
     button.addEventListener('click', function (event) {
